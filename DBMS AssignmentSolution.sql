@@ -126,5 +126,17 @@ select pro_id, pro_name from product where pro_id in (select pro_id from supplie
 #8
 select CUS_NAME, CUS_GENDER from customer where CUS_NAME like 'a%' or CUS_NAME like '%a';
 
+#9
+select s.SUPP_ID, s.SUPP_NAME, r.RAT_RATSTARS, 
+CASE
+	WHEN r.RAT_RATSTARS=5 THEN 'Excellent Service'
+    WHEN r.RAT_RATSTARS>4 THEN 'Good Service'
+    WHEN r.RAT_RATSTARS>2 THEN 'Average Service'
+    ELSE 'Poor Service'
+END as Type_of_Service from supplier s
+join supplier_pricing sp on s.SUPP_ID=sp.SUPP_ID
+join orders o on sp.PRICING_ID=o.PRICING_ID
+join rating r on o.ORD_ID=r.ORD_ID; 
+
 
 
